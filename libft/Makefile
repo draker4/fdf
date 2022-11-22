@@ -1,0 +1,88 @@
+.PHONY:	all clean fclean re
+
+# ******** VARIABLES ******** #
+
+# ---- Final Executable --- #
+
+NAME		=	libft.a
+
+# ---- Directories ---- #
+
+DIR_OBJS	=	.objs/
+
+# ---- Files ---- #
+
+HEAD		=	libft.h
+
+SRCS		=	ft_isalpha.c	ft_isdigit.c	\
+				ft_isalnum.c	ft_isascii.c	\
+				ft_isprint.c	ft_strlen.c		\
+				ft_memset.c		ft_bzero.c		\
+				ft_memcpy.c		ft_strlcpy.c	\
+				ft_strlcat.c	ft_toupper.c	\
+				ft_tolower.c	ft_strchr.c		\
+				ft_strrchr.c	ft_strncmp.c	\
+				ft_memchr.c		ft_memcmp.c		\
+				ft_memmove.c	ft_strnstr.c	\
+				ft_atoi.c		ft_strdup.c		\
+				ft_substr.c		ft_strjoin.c	\
+				ft_strtrim.c	ft_split.c		\
+				ft_itoa.c		ft_strmapi.c	\
+				ft_striteri.c	ft_putchar_fd.c	\
+				ft_putstr_fd.c	ft_putendl_fd.c	\
+				ft_putnbr_fd.c	ft_calloc.c		\
+				ft_lstnew_bonus.c			ft_lstadd_front_bonus.c	\
+				ft_lstsize_bonus.c			ft_lstlast_bonus.c		\
+				ft_lstadd_back_bonus.c		ft_lstdelone_bonus.c	\
+				ft_lstclear_bonus.c			ft_lstiter_bonus.c		\
+				ft_lstmap_bonus.c	ft_putchar.c	ft_printf.c		\
+				ft_itoa.c		ft_putstr.c			\
+				ft_strdup.c		ft_strlen.c			\
+				ft_conv.c		ft_int.c			\
+				ft_char.c		ft_str.c			\
+				ft_pointer.c	ft_putnbr_base.c	\
+				ft_uint.c		ft_itoa_unsigned.c	\
+				ft_hexa.c		ft_percent.c		\
+				get_next_line_bonus.c	get_next_line_utils_bonus.c
+
+OBJS		=	${SRCS:%.c=${DIR_OBJS}%.o}
+
+# ---- Compilation ---- #
+
+CC		=	cc
+CFLAGS	=	-Wall -Wextra -Werror
+
+# ---- Commands ---- #
+
+RM		=	rm -rf
+MKDIR	=	mkdir -p
+AR		=	ar rc
+
+# ********* RULES ******** #
+
+all			:	${NAME}
+
+# ---- Variables Rules ---- #
+
+${NAME}			:	${OBJS} Makefile ${HEAD}
+					${AR} ${NAME} ${OBJS}
+
+# ---- Compiled Rules ---- #
+
+${OBJS}			:	| ${DIR_OBJS}
+
+${DIR_OBJS}%.o	:	%.c ${HEAD} Makefile
+					${CC} ${CFLAGS} -I . -c $< -o $@
+
+${DIR_OBJS}		:
+					${MKDIR} ${DIR_OBJS}
+
+# ---- Usual Commands ---- #
+
+clean			:
+					${RM} ${DIR_OBJS}
+
+fclean			:	clean
+					${RM} ${NAME}
+
+re				:	fclean all
