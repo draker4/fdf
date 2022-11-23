@@ -19,4 +19,4 @@ clean:
 fclean:	clean
 		rm -f mlx_app
 
-re: clean all
+re: fclean all

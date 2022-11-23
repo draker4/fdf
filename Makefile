@@ -1,4 +1,4 @@
-.PHONY:	all clean fclean re bonus output clean_output
+.PHONY:	all clean fclean re clean_lib clean_all fclean_lib fclean_all
 
 # ******** VARIABLES ******** #
 
@@ -20,13 +20,16 @@ DIR_LIBFT	=	libft/
 
 DIR_MLX		=	mlx/
 
+DIR_HEAD	=	head/
+
 #DIR_HEAD	=	head/
 
 # ---- Files ---- #
 
-#HEAD		=	fdf.h
+HEAD		=	fdf.h
 
-SRCS		=	main.c
+SRCS		=	main.c	ft_my_mlx.c \
+				ft_parsing.c
 
 OBJS		=	${SRCS:%.c=${DIR_OBJS}%.o}
 
@@ -47,7 +50,7 @@ all			:	${NAME}
 
 # ---- Variables Rules ---- #
 
-${NAME}			:	${OBJS} Makefile ${LIBMLX} ${LIBFT} #${addprefix ${DIR_HEAD}, ${HEAD}}
+${NAME}			:	${OBJS} Makefile ${LIBMLX} ${LIBFT} ${addprefix ${DIR_HEAD}, ${HEAD}}
 					${CC} ${CFLAGS} ${OBJS} -Lmlx -lmlx -framework OpenGL -framework AppKit -o ${NAME}
 
 ${LIBMLX}		:
@@ -60,7 +63,7 @@ ${LIBFT}		:
 
 ${OBJS}			:	| ${DIR_OBJS}
 
-${DIR_OBJS}%.o	:	${DIR_SRCS}%.c Makefile #${addprefix ${DIR_HEAD}, ${HEAD}}
+${DIR_OBJS}%.o	:	${DIR_SRCS}%.c Makefile ${addprefix ${DIR_HEAD}, ${HEAD}}
 					${CC} ${CFLAGS} -Imlx -c $< -o $@
 
 ${DIR_OBJS}		:
